@@ -4,7 +4,8 @@
   "description": "An experimental runtime environment for JavaScript.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "prettier": "prettier *.* --single-quote --write"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/curran/experimental-runtime/issues"
   },
-  "homepage": "https://github.com/curran/experimental-runtime#readme"
+  "homepage": "https://github.com/curran/experimental-runtime#readme",
+  "devDependencies": {
+    "prettier": "^2.3.1"
+  }
 }
