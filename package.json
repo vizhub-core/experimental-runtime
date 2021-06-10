@@ -1,0 +1,25 @@
+{
+  "name": "experimental-runtime",
+  "version": "0.0.1",
+  "description": "An experimental runtime environment for JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curran/experimental-runtime.git"
+  },
+  "keywords": [
+    "Runtime",
+    "JavaScript",
+    "Sandbox",
+    "REPL"
+  ],
+  "author": "Curran Kelleher",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/curran/experimental-runtime/issues"
+  },
+  "homepage": "https://github.com/curran/experimental-runtime#readme"
+}
