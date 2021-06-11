@@ -16,5 +16,7 @@ export const build = async (files, includeSourcemaps) => {
   if (includeSourcemaps) {
     return code + '\n//# sourceMappingURL=' + map.toUrl();
   }
+
+  //console.log('`' + code + '`');
   return code;
 };
