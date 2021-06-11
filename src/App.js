@@ -10,13 +10,17 @@ export const main = () => {
 
   const runtime = ExperimentalRuntime(runnerIframe.node());
 
-  codeEditor.node().value = `(() => {
-  console.log(window.x);
-  window.x = window.x ? (window.x + 1) : 1;
-})();`;
-
+  codeEditor.node().value = `window.App = {
+  main: () => {
+    console.log(window.x);
+    window.x = window.x ? (window.x + 1) : 1;
+  }
+};`
   codeEditor.on('input', () => {
     const code = codeEditor.node().value;
-    runtime.run(code);
+    const files = {
+      'index.js': code
+    };
+    runtime.run(files);
   });
 };
