@@ -1,33 +1,28 @@
-const { select } = d3;
-const root = select('body').append('div').attr('class', 'root');
-const codeEditor = root.append('textarea').attr('class', 'code-editor');
-const runnerIframe = root.append('iframe').attr('class', 'runner-iframe');
+import { rollup } from 'rollup';
+console.log(rollup);
 
-codeEditor.node().value = `(() => {
-  console.log(window.x);
-  window.x = window.x ? (window.x + 1) : 1;
-})();`;
-
-const srcdoc = `
+export const ExperimentalRuntime = (iframe) => {
+  const srcdoc = `
   <html>
     <head>
     </head>
     <body>
       <script>
         window.addEventListener('message', (event) => {
+          document.getElementById('injected-script')?.remove();
           const script = document.createElement('script');
           script.src = 'data:text/javascript;charset=utf-8,' + event.data;
+          script.id = 'injected-script';
           document.body.appendChild(script);
-          // TODO remove the old one
         });
       </script>
     </body>
   </html>
 `;
 
-runnerIframe.attr('srcdoc', srcdoc);
+  iframe.setAttribute('srcdoc', srcdoc);
 
-codeEditor.on('input', () => {
-  const code = codeEditor.node().value;
-  runnerIframe.node().contentWindow.postMessage(code, '*');
-});
+  const run = (code) => iframe.contentWindow.postMessage(code, '*');
+
+  return { run };
+};
