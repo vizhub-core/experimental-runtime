@@ -78,5 +78,18 @@ describe('ExperimentalRuntime', () => {
         expectedValues.invalidJS
       );
     });
+
+    it('should not crash when import name is not exported', async () => {
+      assert.deepEqual(
+        await build({
+          'index.js': `
+            import { add } from './add';
+            export const main = () => console.log(add(1, 2));
+          `,
+          'add.js': 'export const Add = (a, b) => a + b;',
+        }),
+        expectedValues.nameNotExported
+      );
+    });
   });
 });

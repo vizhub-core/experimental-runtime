@@ -110,4 +110,23 @@ module.exports = {
       watchFiles: ['./index.js'],
     },
   },
+  nameNotExported: {
+    error: {
+      code: 'MISSING_EXPORT',
+      frame:
+        '1: \n' +
+        "2:             import { add } from './add';\n" +
+        '                        ^\n' +
+        '3:             export const main = () => console.log(add(1, 2));',
+      id: './index.js',
+      loc: {
+        column: 21,
+        file: './index.js',
+        line: 2,
+      },
+      pos: 22,
+      url: 'https://rollupjs.org/guide/en/#error-name-is-not-exported-by-module',
+      watchFiles: ['./index.js', './add'],
+    },
+  },
 };
