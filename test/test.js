@@ -60,15 +60,19 @@ describe('ExperimentalRuntime', () => {
       );
     });
 
-    // it('should not crash when package is malformed JSON', async () => {
-    //   assert.deepEqual(
-    //     await build({
-    //       'index.js': `import FooBar from 'foo-bar'; console.log(FooBar);`,
-    //       'package.json': `{`,
-    //     }),
-    //     expectedValues.externalGuessedName
-    // T// ODO expect error message
-    //   );
-    // });
+    it('should not crash when package is malformed JSON', async () => {
+      assert.deepEqual(
+        await build({
+          'index.js': `import FooBar from 'foo-bar'; console.log(FooBar);`,
+          'package.json': `{"foo":}`,
+        }),
+        {
+          error: {
+            code: 'INVALID_PACKAGE_JSON',
+            message: 'Unexpected token } in JSON at position 7',
+          },
+        }
+      );
+    });
   });
 });
