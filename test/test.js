@@ -5,7 +5,7 @@ const expectedValues = require('./expectedValues');
 describe('ExperimentalRuntime', () => {
   describe('build', () => {
     it('should build a single file as UMD', async () => {
-      assert.equal(
+      assert.deepEqual(
         await build({
           'index.js': 'export const main = () => console.log("Hello");',
         }),
@@ -14,7 +14,7 @@ describe('ExperimentalRuntime', () => {
     });
 
     it('should handle modules', async () => {
-      assert.equal(
+      assert.deepEqual(
         await build({
           'index.js': `
             import { add } from './add';
@@ -27,7 +27,7 @@ describe('ExperimentalRuntime', () => {
     });
 
     it('should use external packages', async () => {
-      assert.equal(
+      assert.deepEqual(
         await build({
           'index.js': `
             import FooBar from 'foo-bar';
@@ -48,5 +48,27 @@ describe('ExperimentalRuntime', () => {
         expectedValues.external
       );
     });
+
+    it('should not crash when package is missing browser-builds', async () => {
+      assert.deepEqual(
+        await build({
+          'index.js': `import FooBar from 'foo-bar'; console.log(FooBar);`,
+          'package.json': `{}`,
+        }),
+        expectedValues.externalGuessedName
+        // TODO expect warning message
+      );
+    });
+
+    // it('should not crash when package is malformed JSON', async () => {
+    //   assert.deepEqual(
+    //     await build({
+    //       'index.js': `import FooBar from 'foo-bar'; console.log(FooBar);`,
+    //       'package.json': `{`,
+    //     }),
+    //     expectedValues.externalGuessedName
+    // T// ODO expect error message
+    //   );
+    // });
   });
 });
