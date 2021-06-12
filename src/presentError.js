@@ -3,6 +3,10 @@
 export const presentError = (error) => {
   const lines = [];
 
+  if (error.code === 'INVALID_PACKAGE_JSON') {
+    lines.push('Invalid package.json:');
+  }
+
   lines.push(`${error.name}: ${error.message}`);
 
   if (error.url) {

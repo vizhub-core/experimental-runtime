@@ -89,6 +89,8 @@ module.exports = {
       name: 'SyntaxError',
     },
   },
+  invalidPackageErrorPresented: `Invalid package.json:
+SyntaxError: Unexpected token } in JSON at position 7`,
   invalidJS: {
     error: {
       code: 'PARSE_ERROR',
@@ -113,6 +115,10 @@ module.exports = {
       watchFiles: ['./index.js'],
     },
   },
+  invalidJSErrorPresented: `Error: Unterminated string constant
+./index.js (line 1)
+1: import FooBar from 'foo-bar
+                      ^`,
   nameNotExported: {
     error: {
       code: 'MISSING_EXPORT',
