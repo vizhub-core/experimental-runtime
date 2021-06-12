@@ -86,6 +86,7 @@ module.exports = {
     error: {
       code: 'INVALID_PACKAGE_JSON',
       message: 'Unexpected token } in JSON at position 7',
+      name: 'SyntaxError',
     },
   },
   invalidJS: {
@@ -98,6 +99,8 @@ module.exports = {
         file: './index.js',
         line: 1,
       },
+      message: 'Unterminated string constant',
+      name: 'Error',
       parserError: {
         loc: {
           column: 19,
@@ -124,9 +127,18 @@ module.exports = {
         file: './index.js',
         line: 2,
       },
+      message: "'add' is not exported by ./add, imported by ./index.js",
+      name: 'Error',
       pos: 22,
       url: 'https://rollupjs.org/guide/en/#error-name-is-not-exported-by-module',
       watchFiles: ['./index.js', './add'],
     },
   },
+  nameNotExportedErrorPresented: `Error: 'add' is not exported by ./add, imported by ./index.js
+https://rollupjs.org/guide/en/#error-name-is-not-exported-by-module
+./index.js (line 2)
+1: 
+2:             import { add } from './add';
+                        ^
+3:             export const main = () => console.log(add(1, 2));`,
 };

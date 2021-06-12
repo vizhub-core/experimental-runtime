@@ -30,9 +30,9 @@ export const build = async (files, includeSourcemaps) => {
     // console.log('`' + JSON.stringify(warnings, null, 2) + '`');
     return warnings.length > 0 ? { code, warnings } : { code };
   } catch (error) {
-    if (error.type === 'INVALID_PACKAGE_JSON') {
-      return { error };
-    }
-    return { error: JSON.parse(JSON.stringify(error)) };
+    const serializableError = JSON.parse(JSON.stringify(error));
+    serializableError.name = error.name;
+    serializableError.message = error.message;
+    return { error: serializableError };
   }
 };

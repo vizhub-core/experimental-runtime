@@ -1,5 +1,6 @@
 import { srcdoc } from './srcdoc';
 import { build } from './build';
+import { presentError } from './presentError';
 
 export const ExperimentalRuntime = (iframe) => {
   iframe.setAttribute('srcdoc', srcdoc);
@@ -10,4 +11,4 @@ export const ExperimentalRuntime = (iframe) => {
   };
 };
 
-export { build };
+export { build, presentError };

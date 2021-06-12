@@ -16,7 +16,7 @@ export const main = () => {
   //    window.x = window.x ? (window.x + 1) : 1;
   //  }
   //};`;
-  codeEditor.node().value = `export const main = () => {
+  codeEditor.node().value = `export const main = (state, setState) => {
   console.log(window.x);
   window.x = window.x ? (window.x + 1) : 1;
 }`;

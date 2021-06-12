@@ -2,7 +2,8 @@ const parseJSON = (str) => {
   try {
     return JSON.parse(str);
   } catch (error) {
-    throw { code: 'INVALID_PACKAGE_JSON', message: error.message };
+    error.code = 'INVALID_PACKAGE_JSON';
+    throw error;
   }
 };
 
