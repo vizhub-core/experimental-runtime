@@ -1,22 +1,34 @@
 import { rollup } from 'rollup';
 import { virtual } from './virtual';
+import { getGlobals } from './getGlobals';
 
 export const build = async (files, includeSourcemaps) => {
-  const bundle = await rollup({
+  const inputOptions = {
     input: './index.js',
     plugins: virtual(files),
-  });
-  const { output } = await bundle.generate({
+  };
+
+  const outputOptions = {
     format: 'umd',
     name: 'App',
     sourcemap: true,
-  });
-  const { code, map } = output[0];
+  };
+
+  const globals = getGlobals(files);
+  if (globals) {
+    inputOptions.external = Object.keys(globals);
+    outputOptions.globals = globals;
+  }
+
+  const { code, map } = (
+    await (await rollup(inputOptions)).generate(outputOptions)
+  ).output[0];
 
   if (includeSourcemaps) {
     return code + '\n//# sourceMappingURL=' + map.toUrl();
   }
 
   //console.log('`' + code + '`');
+
   return code;
 };

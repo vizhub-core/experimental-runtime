@@ -12,6 +12,7 @@ describe('ExperimentalRuntime', () => {
         expectedValues.singleFileUMD
       );
     });
+
     it('should handle modules', async () => {
       assert.equal(
         await build({
@@ -22,6 +23,29 @@ describe('ExperimentalRuntime', () => {
           'add.js': 'export const add = (a, b) => a + b;',
         }),
         expectedValues.modules
+      );
+    });
+
+    it('should use external packages', async () => {
+      assert.equal(
+        await build({
+          'index.js': `
+            import FooBar from 'foo-bar';
+            console.log(FooBar);
+          `,
+          'package.json': `{
+            "dependencies": {
+              "foo-bar": "1.0.0"
+            },
+            "browser-builds": {
+              "foo-bar": {
+                "global": "FOOBar",
+                "cdn-path": "/umd/react-dom.production.min.js"
+              }
+            }
+          }`,
+        }),
+        expectedValues.external
       );
     });
   });
