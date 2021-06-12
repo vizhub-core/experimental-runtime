@@ -19,9 +19,8 @@ export const build = async (files, includeSourcemaps) => {
       outputOptions.globals = globals;
     }
 
-    const { code, map } = (
-      await (await rollup(inputOptions)).generate(outputOptions)
-    ).output[0];
+    const bundle = await rollup(inputOptions);
+    const { code, map } = (await bundle.generate(outputOptions)).output[0];
 
     if (includeSourcemaps) {
       return code + '\n//# sourceMappingURL=' + map.toUrl();
@@ -31,7 +30,9 @@ export const build = async (files, includeSourcemaps) => {
     // console.log('`' + JSON.stringify(warnings, null, 2) + '`');
     return warnings.length > 0 ? { code, warnings } : { code };
   } catch (error) {
-    // console.log(error);
-    return { error };
+    if (error.type === 'INVALID_PACKAGE_JSON') {
+      return { error };
+    }
+    return { error: JSON.parse(JSON.stringify(error)) };
   }
 };

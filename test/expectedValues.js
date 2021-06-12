@@ -82,4 +82,32 @@ module.exports = {
       },
     ],
   },
+  invalidPackage: {
+    error: {
+      code: 'INVALID_PACKAGE_JSON',
+      message: 'Unexpected token } in JSON at position 7',
+    },
+  },
+  invalidJS: {
+    error: {
+      code: 'PARSE_ERROR',
+      frame: "1: import FooBar from 'foo-bar\n                      ^",
+      id: './index.js',
+      loc: {
+        column: 19,
+        file: './index.js',
+        line: 1,
+      },
+      parserError: {
+        loc: {
+          column: 19,
+          line: 1,
+        },
+        pos: 19,
+        raisedAt: 27,
+      },
+      pos: 19,
+      watchFiles: ['./index.js'],
+    },
+  },
 };
