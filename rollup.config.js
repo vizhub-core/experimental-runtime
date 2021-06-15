@@ -1,5 +1,5 @@
 import pkg from './package.json';
-const production = !process.env.ROLLUP_WATCH;
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default [
   // Test app build
@@ -15,10 +15,10 @@ export default [
     external: ['d3', 'rollup'],
   },
 
-  // CommonJS build
+  // UMD build
   {
     input: 'src/index.js',
-    external: ['rollup'],
-    output: [{ file: pkg.main, format: 'cjs' }],
+    output: [{ file: pkg.main, format: 'umd', name: 'ExperimentalRuntime' }],
+    plugins: [nodeResolve()],
   },
 ];

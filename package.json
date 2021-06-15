@@ -2,7 +2,7 @@
   "name": "experimental-runtime",
   "version": "0.0.1",
   "description": "An experimental runtime environment for JavaScript.",
-  "main": "dist/experimental-runtime.cjs.js",
+  "main": "dist/experimental-runtime.js",
   "scripts": {
     "test": "mocha",
     "prettier": "prettier {*.*,**/*.*} --single-quote --write",
@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/curran/experimental-runtime#readme",
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "jsdom": "^16.6.0",
     "mocha": "^9.0.0",
     "npm-run-all": "^4.1.5",
@@ -35,6 +36,7 @@
     "serve": "^12.0.0"
   },
   "dependencies": {
+    "puppeteer": "^10.0.0",
     "rollup": "^2.51.2"
   }
 }

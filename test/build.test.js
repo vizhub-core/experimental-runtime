@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { build } = require('../dist/experimental-runtime.cjs.js');
+const { build } = require('../dist/experimental-runtime.js');
 const expectedValues = require('./expectedValues');
 
 describe('build', () => {
