@@ -3,12 +3,12 @@
 import { select } from 'd3';
 import { Runner } from './index';
 
-export const main = () => {
+export const main = async () => {
   const root = select('body').append('div').attr('class', 'root');
   const codeEditor = root.append('textarea').attr('class', 'code-editor');
   const runnerIframe = root.append('iframe').attr('class', 'runner-iframe');
 
-  const runner = Runner(runnerIframe.node());
+  const runner = await Runner(runnerIframe.node());
 
   codeEditor.node().value = `export const main = (state, setState) => {
   console.log(window.x);
