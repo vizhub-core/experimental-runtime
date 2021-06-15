@@ -24,15 +24,11 @@ describe('run', () => {
       path: './dist/experimental-runtime.js',
     });
 
-    await page.evaluate(() => {
+    await page.evaluate(async () => {
       const iframe = document.getElementById('runner-iframe');
       const { Runner } = ExperimentalRuntime;
-      window.runner = Runner(iframe);
+      window.runner = await Runner(iframe);
     });
-
-    // Allow the new srcdoc to execute.
-    // TODO find a way to listen for this?
-    await new Promise((resolve) => setTimeout(resolve, 100));
 
     frame = page.frames().find((frame) => frame.name() === 'runner-iframe');
 

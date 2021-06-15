@@ -12,14 +12,14 @@ export const srcdoc = `<html>
           // TODO pass information back to containing app, with line number and file name
           // TODO use Rollup sourcemaps to get back to original error
           errored = true;
-//          return true;
+          return true;
         }
         window.addEventListener('message', (event) => {
+          errored = false;
           document.getElementById('injected-script')?.remove();
           const script = document.createElement('script');
           script.src = 'data:text/javascript;charset=utf-8,' + event.data;
           script.id = 'injected-script';
-          errored = false;
           script.onload = () => {
             if(!errored) {
               window.App.main();
