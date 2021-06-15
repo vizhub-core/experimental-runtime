@@ -41,9 +41,6 @@ describe('run', () => {
         'index.js': `export const main = () => { window.foo = 'bar'; }`,
       });
     });
-    // Allow the newly appended <script> tag to run.
-    // TODO find a way to listen for this?
-    await new Promise((resolve) => setTimeout(resolve, 100));
     const foo = await frame.evaluate(() => window.foo);
     assert.equal(foo, 'bar');
   });

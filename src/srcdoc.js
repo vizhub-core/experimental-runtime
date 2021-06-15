@@ -14,10 +14,26 @@ export const srcdoc = `<html>
         //  errored = true;
         //  return true;
         //}
-        const run = code => eval(code);
+
+        const run = (code) => {
+          document.getElementById('injected-script')?.remove();
+          const script = document.createElement('script');
+          script.textContent = event.data;
+          script.id = 'injected-script';
+          document.body.appendChild(script);
+        };
+
         window.addEventListener('message', (event) => {
           run(event.data);
-          window.App.main();
+          window.App?.main();
+        });
+      })();
+    </script>
+  </body>
+</html>`;
+
+//    const run = (code) => eval(code);
+
 //          errored = false;
 //          document.getElementById('injected-script')?.remove();
 //          const script = document.createElement('script');
@@ -34,8 +50,3 @@ export const srcdoc = `<html>
 ////          }
 //          document.body.appendChild(script);
 //          console.log('appended script');
-        });
-      })();
-    </script>
-  </body>
-</html>`;
