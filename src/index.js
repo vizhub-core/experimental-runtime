@@ -6,7 +6,7 @@ export const ExperimentalRuntime = (iframe) => {
   iframe.setAttribute('srcdoc', srcdoc);
   return {
     run: async (files) => {
-      iframe.contentWindow.postMessage(await build(files), '*');
+      iframe.contentWindow.postMessage(await build(files, true), '*');
     },
   };
 };

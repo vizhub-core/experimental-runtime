@@ -10,12 +10,6 @@ export const main = () => {
 
   const runtime = ExperimentalRuntime(runnerIframe.node());
 
-  //  codeEditor.node().value = `window.App = {
-  //  main: () => {
-  //    console.log(window.x);
-  //    window.x = window.x ? (window.x + 1) : 1;
-  //  }
-  //};`;
   codeEditor.node().value = `export const main = (state, setState) => {
   console.log(window.x);
   window.x = window.x ? (window.x + 1) : 1;

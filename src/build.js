@@ -2,7 +2,7 @@ import { rollup } from 'rollup';
 import { virtual } from './virtual';
 import { getGlobals } from './getGlobals';
 
-export const build = async (files, includeSourcemaps) => {
+export const build = async (files, includeSourcemaps = false) => {
   const warnings = [];
   const onwarn = (warning) => {
     warnings.push(JSON.parse(JSON.stringify(warning)));
