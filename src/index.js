@@ -2,7 +2,7 @@ import { srcdoc } from './srcdoc';
 import { build } from './build';
 import { presentError } from './presentError';
 
-export const ExperimentalRuntime = (iframe) => {
+export const Runner = (iframe) => {
   iframe.setAttribute('srcdoc', srcdoc);
   return {
     run: async (files) => {
