@@ -4,9 +4,12 @@ const assert = require('assert');
 //const { build } = require('../dist/experimental-runtime.js');
 
 describe('run', () => {
-  it('should run code', async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+  let browser;
+  let page;
+  let frame;
+  it('should set up the runner', async () => {
+    browser = await puppeteer.launch();
+    page = await browser.newPage();
     page.on('console', (msg) => console.log(msg.text()));
     await page.setContent(`
       <html>
@@ -20,27 +23,36 @@ describe('run', () => {
     await page.addScriptTag({
       path: './dist/experimental-runtime.js',
     });
+
     await page.evaluate(() => {
       const iframe = document.getElementById('runner-iframe');
       const { Runner } = ExperimentalRuntime;
-      const runner = Runner(iframe);
-      console.log(runner);
-      console.log('b');
-      const files = {
-        'index.js': `window.foo = 'bar';`,
-      };
-      runner.run(files);
+      window.runner = Runner(iframe);
     });
 
     // Allow the new srcdoc to execute.
     // TODO find a way to listen for this?
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    const frame = page
-      .frames()
-      .find((frame) => frame.name() === 'runner-iframe');
-    // TODO make sure this returns 'bar';
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    frame = page.frames().find((frame) => frame.name() === 'runner-iframe');
+
+    assert.equal(frame.name(), 'runner-iframe');
+  });
+
+  it('should run JS', async () => {
+    await page.evaluate(() => {
+      window.runner.run({
+        'index.js': `export const main = () => { window.foo = 'bar'; }`,
+      });
+    });
+    // Allow the newly appended <script> tag to run.
+    // TODO find a way to listen for this?
+    await new Promise((resolve) => setTimeout(resolve, 100));
     const foo = await frame.evaluate(() => window.foo);
-    assert.deepEqual(foo, 'bar');
+    assert.equal(foo, 'bar');
+  });
+
+  it('should tear down the browser', async () => {
     await browser.close();
   });
 });

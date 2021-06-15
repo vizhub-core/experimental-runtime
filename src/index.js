@@ -1,14 +1,5 @@
-import { srcdoc } from './srcdoc';
 import { build } from './build';
 import { presentError } from './presentError';
+import { Runner } from './Runner';
 
-export const Runner = (iframe) => {
-  iframe.setAttribute('srcdoc', srcdoc);
-  return {
-    run: async (files) => {
-      iframe.contentWindow.postMessage(await build(files, true), '*');
-    },
-  };
-};
-
-export { build, presentError };
+export { build, presentError, Runner };
