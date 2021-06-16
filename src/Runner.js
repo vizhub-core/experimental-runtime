@@ -4,7 +4,7 @@ import { build } from './build';
 export const Runner = (iframe) => {
   return new Promise((resolve, reject) => {
     iframe.onload = () => {
-      resolve({
+      const runner = {
         run: async (files) => {
           iframe.contentWindow.postMessage(
             {
@@ -23,7 +23,13 @@ export const Runner = (iframe) => {
             '*'
           );
         },
+      };
+      window.addEventListener('message', ({ data }) => {
+        if (runner.onstatechange && data.type === 'stateChange') {
+          runner.onstatechange(data.state);
+        }
       });
+      resolve(runner);
     };
     iframe.setAttribute('srcdoc', srcdoc);
   });

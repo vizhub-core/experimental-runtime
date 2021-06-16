@@ -81,6 +81,28 @@ describe('run', () => {
     assert.equal(foo, 'inside');
   });
 
+  it('should nofity of state changes from inside', async () => {
+    await page.evaluate(() => {
+      window.runner.onstatechange = (state) => {
+        window.newState = state;
+      };
+      window.runner.run({
+        'index.js': `
+          export const main = (state, setState) => {
+            setState('new');
+            window.foo = state;
+          }
+        `,
+      });
+    });
+    // Wait for inner requestAnimationFrame.
+    // TODO wait for message that state was set instead of this hack.
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    const newState = await page.evaluate(() => window.newState);
+    assert.equal(newState, 'new');
+  });
+
   it('should tear down the browser', async () => {
     await browser.close();
   });

@@ -32,6 +32,7 @@ export const srcdoc = `<html>
             cancelAnimationFrame(requestId);
             requestId = requestAnimationFrame(() => {
               window.App?.main(state, setState);
+              window.parent.postMessage({type:'stateChange', state}, "*");
             });
           }
         }
