@@ -6,7 +6,22 @@ export const Runner = (iframe) => {
     iframe.onload = () => {
       resolve({
         run: async (files) => {
-          iframe.contentWindow.postMessage(await build(files, true), '*');
+          iframe.contentWindow.postMessage(
+            {
+              type: 'setJS',
+              js: await build(files, true),
+            },
+            '*'
+          );
+        },
+        setState: (state) => {
+          iframe.contentWindow.postMessage(
+            {
+              type: 'setState',
+              state,
+            },
+            '*'
+          );
         },
       });
     };

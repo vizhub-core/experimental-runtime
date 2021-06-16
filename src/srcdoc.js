@@ -15,17 +15,26 @@ export const srcdoc = `<html>
         //  return true;
         //}
 
-        const run = (code) => {
+        const setJS = (js) => {
           document.getElementById('injected-script')?.remove();
           const script = document.createElement('script');
-          script.textContent = event.data;
+          script.textContent = js;
           script.id = 'injected-script';
           document.body.appendChild(script);
         };
 
-        window.addEventListener('message', (event) => {
-          run(event.data);
-          window.App?.main();
+        const setState = (state) => {
+          window.state = state;
+        }
+
+        window.addEventListener('message', ({data}) => {
+          if(data.type === 'setJS') {
+            setJS(data.js);
+          }
+          if(data.type === 'setState') {
+            setState(data.state);
+          }
+          window.App?.main(window.state);
         });
       })();
     </script>
