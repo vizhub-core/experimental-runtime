@@ -81,7 +81,7 @@ describe('run', () => {
     assert.equal(foo, 'inside');
   });
 
-  it('should nofity of state changes from inside', async () => {
+  it('should notify of state changes from inside', async () => {
     await page.evaluate(() => {
       window.runner.onstatechange = (state) => {
         window.newState = state;
@@ -89,18 +89,35 @@ describe('run', () => {
       window.runner.run({
         'index.js': `
           export const main = (state, setState) => {
-            setState('new');
-            window.foo = state;
+            setState('new from inside');
           }
         `,
       });
     });
     // Wait for inner requestAnimationFrame.
-    // TODO wait for message that state was set instead of this hack.
     await new Promise((resolve) => setTimeout(resolve, 100));
 
     const newState = await page.evaluate(() => window.newState);
-    assert.equal(newState, 'new');
+    assert.equal(newState, 'new from inside');
+  });
+
+  it('should notify of state changes from outside', async () => {
+    await page.evaluate(() => {
+      window.newState = 'not set';
+      window.runner.onstatechange = (state) => {
+        window.newState = state;
+      };
+      window.runner.run({
+        'index.js': 'export const main = () => {}',
+      });
+      window.runner.setState('new from outside');
+    });
+
+    // Wait for inner requestAnimationFrame.
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    const newState = await page.evaluate(() => window.newState);
+    assert.equal(newState, 'new from outside');
   });
 
   it('should tear down the browser', async () => {
