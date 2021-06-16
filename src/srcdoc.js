@@ -21,10 +21,18 @@ export const srcdoc = `<html>
           script.textContent = js;
           script.id = 'injected-script';
           document.body.appendChild(script);
+          window.App?.main(window.state, setState);
         };
 
+        let requestId;
         const setState = (state) => {
-          window.state = state;
+          if(JSON.stringify(state) !== JSON.stringify(window.state)) {
+            window.state = state;
+            cancelAnimationFrame(requestId);
+            requestId = requestAnimationFrame(() => {
+              window.App?.main(window.state, setState);
+            });
+          }
         }
 
         window.addEventListener('message', ({data}) => {
@@ -34,7 +42,6 @@ export const srcdoc = `<html>
           if(data.type === 'setState') {
             setState(data.state);
           }
-          window.App?.main(window.state);
         });
       })();
     </script>
