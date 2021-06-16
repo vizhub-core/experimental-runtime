@@ -5,6 +5,7 @@ export const srcdoc = `<html>
     <script>
       (() => {
         let errored;
+        let state;
         //window.onerror = function (msg, url, lineNo, columnNo, error) {
         //  console.log('onerror');
         //  console.log(arguments);
@@ -21,16 +22,16 @@ export const srcdoc = `<html>
           script.textContent = js;
           script.id = 'injected-script';
           document.body.appendChild(script);
-          window.App?.main(window.state, setState);
+          window.App?.main(state, setState);
         };
 
         let requestId;
-        const setState = (state) => {
-          if(JSON.stringify(state) !== JSON.stringify(window.state)) {
-            window.state = state;
+        const setState = (newState) => {
+          if(JSON.stringify(newState) !== JSON.stringify(state)) {
+            state = newState;
             cancelAnimationFrame(requestId);
             requestId = requestAnimationFrame(() => {
-              window.App?.main(window.state, setState);
+              window.App?.main(state, setState);
             });
           }
         }
