@@ -8,3 +8,8 @@ The fundamental idea behind this project is that JavaScript is executed in an if
 - DOM can remain in memory between re-executions of JavaScript.
 - JavaScript libraries need only be loaded and parsed when dependencies change.
 - It opens the door to dynamically injected state and CSS.
+
+Inspired by:
+
+ * [Bret Victor - Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII)
+ * [Dan Abramov - Live React: Hot Reloading with Time Travel](https://www.youtube.com/watch?v=xsSnOQynTHs)
