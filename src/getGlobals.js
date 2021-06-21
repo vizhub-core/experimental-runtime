@@ -8,11 +8,12 @@ const parseJSON = (str) => {
 };
 
 // Extracts the browser globals from package.json
+const browserBuildsField = 'browser-builds';
 export const getGlobals = (files) => {
   if ('package.json' in files) {
     const json = parseJSON(files['package.json']);
-    if ('browser-builds' in json) {
-      return Object.entries(json['browser-builds']).reduce(
+    if (browserBuildsField in json) {
+      return Object.entries(json[browserBuildsField]).reduce(
         (accumulator, [packageName, config]) => {
           accumulator[packageName] = config.global;
           return accumulator;

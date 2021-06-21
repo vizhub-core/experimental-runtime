@@ -11,5 +11,5 @@ The fundamental idea behind this project is that JavaScript is executed in an if
 
 Inspired by:
 
- * [Bret Victor - Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII)
- * [Dan Abramov - Live React: Hot Reloading with Time Travel](https://www.youtube.com/watch?v=xsSnOQynTHs)
+- [Bret Victor - Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII)
+- [Dan Abramov - Live React: Hot Reloading with Time Travel](https://www.youtube.com/watch?v=xsSnOQynTHs)
