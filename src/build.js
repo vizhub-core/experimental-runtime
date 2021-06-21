@@ -9,7 +9,12 @@ export const build = async (files, includeSourcemaps = false) => {
   };
 
   const inputOptions = { input: './index.js', plugins: virtual(files), onwarn };
-  const outputOptions = { format: 'umd', name: 'App', sourcemap: true };
+  const outputOptions = {
+    format: 'umd',
+    name: 'App',
+    sourcemap: true,
+    interop: 'default',
+  };
 
   try {
     const globals = getGlobals(files);

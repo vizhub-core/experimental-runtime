@@ -25,15 +25,17 @@ export const srcdoc = `<html>
           window.App?.main(state, setState);
         };
 
-        let requestId;
+        let requestId = null;
         const setState = (newState) => {
           if(JSON.stringify(newState) !== JSON.stringify(state)) {
             state = newState;
-            cancelAnimationFrame(requestId);
-            requestId = requestAnimationFrame(() => {
-              window.App?.main(state, setState);
-              window.parent.postMessage({type:'stateChange', state}, "*");
-            });
+            if(!requestId) {
+              requestId = requestAnimationFrame(() => {
+                requestId = null;
+                window.App?.main(state, setState);
+                window.parent.postMessage({type:'stateChange', state}, "*");
+              });
+            }
           }
         }
 

@@ -4,7 +4,7 @@
   "description": "An experimental runtime environment for JavaScript.",
   "main": "dist/experimental-runtime.js",
   "scripts": {
-    "test": "npm run build && mocha",
+    "test": "npm run build && mocha -s 0",
     "prettier": "prettier {*.*,**/*.*} --single-quote --write",
     "build": "rollup -c",
     "watch": "rollup -c -w",

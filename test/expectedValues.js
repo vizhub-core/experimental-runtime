@@ -35,16 +35,12 @@ module.exports = {
   },
   external: {
     code: `(function (global, factory) {
-          typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('foo-bar')) :
-          typeof define === 'function' && define.amd ? define(['foo-bar'], factory) :
-          (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FOOBar));
+        typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('foo-bar')) :
+        typeof define === 'function' && define.amd ? define(['foo-bar'], factory) :
+        (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FOOBar));
 }(this, (function (FooBar) { 'use strict';
 
-          function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-          var FooBar__default = /*#__PURE__*/_interopDefaultLegacy(FooBar);
-
-          console.log(FooBar__default['default']);
+        console.log(FooBar);
 
 })));
 `,
@@ -56,11 +52,7 @@ module.exports = {
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FooBar));
 }(this, (function (FooBar) { 'use strict';
 
-	function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-	var FooBar__default = /*#__PURE__*/_interopDefaultLegacy(FooBar);
-
-	console.log(FooBar__default['default']);
+	console.log(FooBar);
 
 })));
 `,

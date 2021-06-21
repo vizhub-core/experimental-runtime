@@ -29,17 +29,17 @@ describe('build', () => {
     assert.deepEqual(
       await build({
         'index.js': `
-            import FooBar from 'foo-bar';
-            console.log(FooBar);
-          `,
+          import FooBar from 'foo-bar';
+          console.log(FooBar);
+        `,
         'package.json': `{
-            "browser-builds": {
-              "foo-bar": {
-                "global": "FOOBar",
-                "cdn-path": "/umd/react-dom.production.min.js"
-              }
+          "browser-builds": {
+            "foo-bar": {
+              "global": "FOOBar",
+              "cdn-path": "/umd/react-dom.production.min.js"
             }
-          }`,
+          }
+        }`,
       }),
       expectedValues.external
     );
