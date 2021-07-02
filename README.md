@@ -13,3 +13,7 @@ Inspired by:
 
 - [Bret Victor - Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII)
 - [Dan Abramov - Live React: Hot Reloading with Time Travel](https://www.youtube.com/watch?v=xsSnOQynTHs)
+
+Related work:
+
+- [GitHub: yangsu/inventing-on-principle](https://github.com/yangsu/inventing-on-principle)
