@@ -27,6 +27,7 @@ export const srcdoc = `<html>
 
         let requestId = null;
         const setState = (newState) => {
+          // TODO think about ways we can avoid this expensive deep equal check.
           if(JSON.stringify(newState) !== JSON.stringify(state)) {
             state = newState;
             if(!requestId) {
