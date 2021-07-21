@@ -14,11 +14,17 @@ export const main = async () => {
   console.log(window.x);
   window.x = window.x ? (window.x + 1) : 1;
 }`;
-  codeEditor.on('input', () => {
-    const code = codeEditor.node().value;
-    const files = {
-      'index.js': code,
-    };
-    runner.run(files);
-  });
+
+  // Runs the program.
+  const run = () => {
+    runner.run({
+      'index.js': codeEditor.node().value,
+    });
+  };
+
+  // Run once initially.
+  run();
+
+  // Run when the text changes.
+  codeEditor.on('input', run);
 };
