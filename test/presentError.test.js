@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { presentError } = require('../dist/experimental-runtime.cjs.js');
+const { presentError } = require('../dist/experimental-runtime.js');
 const expectedValues = require('./expectedValues');
 
 describe('presentError', () => {
