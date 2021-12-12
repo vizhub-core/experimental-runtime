@@ -31,8 +31,10 @@ export const build = async (files, includeSourcemaps = false) => {
       return code + '\n//# sourceMappingURL=' + map.toUrl();
     }
 
-    // console.log('`' + code + '`');
-    // console.log('`' + JSON.stringify(warnings, null, 2) + '`');
+    // Uncomment the following to get values for test/expectedValues.js
+    // Works well with it.only to isolate a specific test.
+    // console.log('code: `' + code + '`');
+    // console.log('warnings: `' + JSON.stringify(warnings, null, 2) + '`');
     return warnings.length > 0 ? { code, warnings } : { code };
   } catch (error) {
     const serializableError = JSON.parse(JSON.stringify(error));

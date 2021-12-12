@@ -1,36 +1,23 @@
 module.exports = {
   singleFileUMD: {
-    code: `(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-	typeof define === 'function' && define.amd ? define(['exports'], factory) :
-	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.App = {}));
-}(this, (function (exports) { 'use strict';
-
-	const main = () => console.log("Hello");
-
-	exports.main = main;
-
-	Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
-`,
+    code: `(function (global, factory) {\n\ttypeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :\n\ttypeof define === 'function' && define.amd ? define(['exports'], factory) :\n\t(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.App = {}));\n})(this, (function (exports) { 'use strict';\n\n\tconst main = () => console.log(\"Hello\");\n\n\texports.main = main;\n\n\tObject.defineProperty(exports, '__esModule', { value: true });\n\n}));\n`,
   },
   modules: {
     code: `(function (global, factory) {
-          typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-          typeof define === 'function' && define.amd ? define(['exports'], factory) :
-          (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.App = {}));
-}(this, (function (exports) { 'use strict';
+        typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+        typeof define === 'function' && define.amd ? define(['exports'], factory) :
+        (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.App = {}));
+})(this, (function (exports) { 'use strict';
 
-          const add = (a, b) => a + b;
+        const add = (a, b) => a + b;
 
-          const main = () => console.log(add(1, 2));
+        const main = () => console.log(add(1, 2));
 
-          exports.main = main;
+        exports.main = main;
 
-          Object.defineProperty(exports, '__esModule', { value: true });
+        Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
 `,
   },
   external: {
@@ -38,11 +25,11 @@ module.exports = {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('foo-bar')) :
         typeof define === 'function' && define.amd ? define(['foo-bar'], factory) :
         (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FOOBar));
-}(this, (function (FooBar) { 'use strict';
+})(this, (function (FooBar) { 'use strict';
 
         console.log(FooBar);
 
-})));
+}));
 `,
   },
   externalGuessedName: {
@@ -50,11 +37,11 @@ module.exports = {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('foo-bar')) :
 	typeof define === 'function' && define.amd ? define(['foo-bar'], factory) :
 	(global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FooBar));
-}(this, (function (FooBar) { 'use strict';
+})(this, (function (FooBar) { 'use strict';
 
 	console.log(FooBar);
 
-})));
+}));
 `,
     warnings: [
       {
