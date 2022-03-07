@@ -1,6 +1,6 @@
 {
   "name": "experimental-runtime",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "An experimental runtime environment for JavaScript.",
   "main": "dist/experimental-runtime.js",
   "scripts": {
