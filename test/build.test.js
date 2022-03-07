@@ -16,9 +16,9 @@ describe('build', () => {
     assert.deepEqual(
       await build({
         'index.js': `
-            import { add } from './add';
-            export const main = () => console.log(add(1, 2));
-          `,
+          import { add } from './add';
+          export const main = () => console.log(add(1, 2));
+        `,
         'add.js': 'export const add = (a, b) => a + b;',
       }),
       expectedValues.modules
