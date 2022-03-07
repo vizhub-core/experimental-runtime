@@ -9,7 +9,8 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "dev": "npm-run-all --parallel start watch",
-    "start": "serve public"
+    "start": "serve public",
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
